@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C语言程序设计大题题库</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; max-width: 960px; margin: 0 auto; padding: 30px; background-color: #f5f7fa; }
+        h1 { text-align: center; color: #2c3e50; border-bottom: 3px solid #34495e; padding-bottom: 15px; margin-bottom: 40px; }
+        .question-block { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; margin-bottom: 35px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .question-title { font-size: 1.25em; font-weight: bold; color: #2c3e50; margin-top: 0; border-left: 5px solid #3498db; padding-left: 15px; margin-bottom: 15px; }
+        .section-title { font-weight: bold; color: #4a5568; margin-top: 15px; margin-bottom: 5px; font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .io-example { background-color: #edf2f7; border-left: 3px solid #cbd5e0; padding: 12px; font-family: "Courier New", Courier, monospace; font-size: 0.95em; margin: 8px 0; white-space: pre-wrap; color: #2d3748; }
+        pre { background-color: #1a202c; color: #f7fafc; padding: 18px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, "Andale Mono", monospace; font-size: 0.9em; margin-top: 12px; line-height: 1.5; }
+        code { font-family: Consolas, Monaco, monospace; background-color: #edf2f7; padding: 2px 6px; border-radius: 4px; color: #e53e3e; font-size: 0.9em; }
+        pre code { background-color: transparent; padding: 0; color: inherit; font-size: inherit; }
+        .math { font-style: italic; font-family: "Times New Roman", Times, serif; background: #fff; padding: 10px; display: block; margin: 10px 0; border: 1px solid #e2e8f0; border-radius: 4px; text-align: center; }
+        p { margin: 8px 0; }
+    </style>
+</head>
+<body>
+
+    <h1>三、程序设计题（共26小题，260分） [cite: 1]</h1>
+
+    <div class="question-block">
+        <div class="question-title">1. 【描述】 [cite: 2]</div>
+        <p>输入若干个整数，如果输入0，输入即终止。判定读入的整数中有多少个正整数、多少个负整数，并计算这些整数的总和和平均值（0不计算在内）。平均值结果保留2位小数。 [cite: 3, 4]</p>
+        
+        <div class="section-title">【输入】 [cite: 5]</div>
+        <p>输入若干个整数，如果输入0，输入即终止。 [cite: 6]</p>
+        
+        <div class="section-title">【输出】 [cite: 7]</div>
+        <p>分行输出这些整数中的正整数个数、负整数个数、总和、平均值（0不计算在内）。若只输入0，则输出: No input. [cite: 8, 9]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 10]</div>
+        <div class="io-example">-1 -2 -3 -4 -5 6 7 8 9 0</div>
+        
+        <div class="section-title">【输出示例】 [cite: 13]</div>
+        <div class="io-example">4
+5
+15
+1.67</div>
+
+        <div class="section-title">参考答案: [cite: 17]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 18]
+
+int main(void) [cite: 19]
+{ [cite: 20]
+    int countPositive = 0; [cite: 21]
+    int countNegative = 0; [cite: 23]
+    int count = 0; [cite: 24]
+    int sum = 0; [cite: 25]
+    int number; [cite: 26]
+
+    do { [cite: 27]
+        scanf("%d", &number); [cite: 28]
+        if (number &gt; 0) { [cite: 29]
+            ++countPositive; [cite: 31]
+        } else if (number &lt; 0) { [cite: 32]
+            ++countNegative; [cite: 33]
+        } [cite: 34]
+        sum += number; [cite: 34]
+        ++count; [cite: 35]
+    } while (number != 0); [cite: 36]
+
+    --count; // 扣除最后输入的0 [cite: 36]
+    if (count == 0) { [cite: 37]
+        printf("No input\n"); [cite: 40]
+    } else { [cite: 38]
+        printf("%d\n", countPositive); [cite: 41]
+        printf("%d\n", countNegative); [cite: 42]
+        printf("%d\n", sum); [cite: 43]
+        printf("%.2f\n", (sum * 1.0 / count)); [cite: 44]
+    } [cite: 45]
+    return 0; [cite: 46]
+} [cite: 47]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">2. 【描述】 [cite: 48]</div>
+        <p>晶晶的朋友贝贝约晶晶下周一起去看展览，但晶晶每周的1、3、5必须上课，请帮晶晶判断她能否接受贝贝的邀请，如果能输出YES；如果不能则输出NO。 [cite: 49, 50]</p>
+        
+        <div class="section-title">【输入】 [cite: 51]</div>
+        <p>输入贝贝邀请晶晶去看展览的日期，用数字1到7表示从星期一到星期日。 [cite: 52]</p>
+        
+        <div class="section-title">【输出】 [cite: 52]</div>
+        <p>如果晶晶可以接受贝贝的邀请，输出YES，否则，输出NO。注意YES和NO都大写！ [cite: 53]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 55]</div>
+        <div class="io-example">2</div>
+        
+        <div class="section-title">【输出示例】 [cite: 56]</div>
+        <div class="io-example">YES</div>
+
+        <div class="section-title">参考答案: [cite: 58]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 59]
+
+int main(void) [cite: 60]
+{ [cite: 61]
+    int day; [cite: 63]
+    scanf("%d", &day); [cite: 64]
+    if (day != 1 && day != 3 && day != 5) { [cite: 65]
+        printf("YES\n"); [cite: 67]
+    } else { [cite: 66]
+        printf("NO\n"); [cite: 68]
+    } [cite: 62]
+    return 0; [cite: 69]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">3. 【描述】 [cite: 70]</div>
+        <p>求一个正整数各位数字之和。要求定义和调用函数：<code>int sumDigits(int n)</code>，该函数返回一个正整数各位数字之和。 [cite: 71]</p>
+        
+        <div class="section-title">【输入】 [cite: 72]</div>
+        <p>输入一个正整数。 [cite: 73]</p>
+        
+        <div class="section-title">【输出】 [cite: 74]</div>
+        <p>输出该正整数各位数字之和。 [cite: 75]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 76]</div>
+        <div class="io-example">3456</div>
+        
+        <div class="section-title">【输出示例】 [cite: 78]</div>
+        <div class="io-example">18</div>
+
+        <div class="section-title">参考答案: [cite: 80]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 81]
+
+int sumDigits(int n); [cite: 82]
+
+int main() [cite: 83]
+{ [cite: 84]
+    int n; [cite: 85]
+    scanf("%d", &n); [cite: 86]
+    printf("%d\n", sumDigits(n)); [cite: 87]
+    return 0; [cite: 87]
+} [cite: 87]
+
+int sumDigits(int n) [cite: 88]
+{ [cite: 89]
+    int remainder, result = 0; [cite: 90]
+    while (n != 0) { [cite: 92]
+        remainder = n % 10; [cite: 93]
+        result += remainder; [cite: 94]
+        n = n / 10; [cite: 95]
+    } [cite: 96]
+    return result; [cite: 98]
+} [cite: 97]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">4. 【描述】 [cite: 99]</div>
+        <p>将一个大写字母转换为小写字母。 [cite: 100]</p>
+        
+        <div class="section-title">【输入】 [cite: 101]</div>
+        <p>输入一个字母。 [cite: 102]</p>
+        
+        <div class="section-title">【输出】 [cite: 103]</div>
+        <p>输出对应的小写字母。注意: 若输入的是小写字母，则直接输出。 [cite: 104]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 107]</div>
+        <div class="io-example">A</div>
+        
+        <div class="section-title">【输出示例】 [cite: 108]</div>
+        <div class="io-example">a</div>
+
+        <div class="section-title">参考答案: [cite: 109]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 110]
+#include &lt;ctype.h&gt; [cite: 111]
+
+int main(void) [cite: 112]
+{ [cite: 113]
+    int lowercase, uppercase; [cite: 114]
+    uppercase = getchar(); [cite: 115]
+    lowercase = isupper(uppercase) ? tolower(uppercase) : uppercase; [cite: 116]
+    printf("%c\n", lowercase); [cite: 117]
+    return 0; [cite: 118]
+} [cite: 119]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">5. 【描述】 [cite: 120]</div>
+        <p>计算并输出分段函数f的值，要求保留小数点后2位精度。分段函数的数学定义如下： [cite: 121]</p>
+        <div class="math">
+            f(x) = (x + 1)<sup>2</sup> + 2x + 1/x (当 x &lt; 0 时) ; &radic;x (当 x &ge; 0 时) [cite: 122]
+        </div>
+        
+        <div class="section-title">【输入】 [cite: 123]</div>
+        <p>输入整数x。 [cite: 124]</p>
+        
+        <div class="section-title">【输出】 [cite: 125]</div>
+        <p>输出分段函数f的值。 [cite: 126]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 127]</div>
+        <div class="io-example">10</div>
+        
+        <div class="section-title">【输出示例】 [cite: 129]</div>
+        <div class="io-example">3.16</div>
+        
+        <div class="section-title">【提示】 [cite: 131]</div>
+        <p>可以使用条件运算符。可以使用数学库中的pow函数和sqrt函数。包含头文件 &lt;math.h&gt;。 [cite: 132]</p>
+
+        <div class="section-title">参考答案: [cite: 133]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 134]
+#include &lt;math.h&gt; [cite: 135]
+
+int main(void) [cite: 136]
+{ [cite: 137]
+    int x; [cite: 138]
+    double f; [cite: 139]
+    scanf("%d", &x); [cite: 142]
+    f = (x &lt; 0) ? (pow((x + 1), 2) + 2 * x + 1.0 / x) : sqrt(x); [cite: 143, 147]
+    printf("%.2f\n", f); [cite: 144]
+    return 0; [cite: 145]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">6. 【描述】 [cite: 146]</div>
+        <p>输入一个整数a (a不为-1)，求如下表达式的值，结果保留小数点后2位精度。 [cite: 148]</p>
+        <div class="math">
+            ( cos(50&deg;) + &radic;37.5 ) / (a + 1) [cite: 149]
+        </div>
+        
+        <div class="section-title">【输入】 [cite: 150]</div>
+        <p>输入一个整数a。 [cite: 151]</p>
+        
+        <div class="section-title">【输出】 [cite: 152]</div>
+        <p>输出表达式的值，结果保留小数点后2位精度。 [cite: 153]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 155]</div>
+        <div class="io-example">2</div>
+        
+        <div class="section-title">【输出示例】 [cite: 156]</div>
+        <div class="io-example">2.26</div>
+        
+        <div class="section-title">【提示】 [cite: 158]</div>
+        <p>可以使用数学库中的cos函数和sqrt函数。包含头文件 &lt;math.h&gt; [cite: 159]</p>
+
+        <div class="section-title">参考答案: [cite: 160]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 161]
+#include &lt;math.h&gt; [cite: 162]
+#define PI 3.14159 [cite: 163]
+
+int main(void) [cite: 164]
+{ [cite: 166]
+    int a; [cite: 167]
+    scanf("%d", &a); [cite: 168]
+    printf("%.2f\n", (cos(50 * PI / 180) + sqrt(37.5)) / (a + 1)); [cite: 169]
+    return 0; [cite: 170]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">7. 【描述】 [cite: 171]</div>
+        <p>输入若干个字符，分别统计其中英文字母、数字字符和其他字符的个数。 [cite: 172]</p>
+        
+        <div class="section-title">【输入】 [cite: 172]</div>
+        <p>输入若干个字符。 [cite: 173]</p>
+        
+        <div class="section-title">【输出】 [cite: 174]</div>
+        <p>分行输出这些字符中的英文字母个数、数字字符个数、其他字符个数。 [cite: 175]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 176]</div>
+        <div class="io-example">Reold 123?</div>
+        
+        <div class="section-title">【输出示例】 [cite: 178]</div>
+        <div class="io-example">5
+3
+2</div>
+
+        <div class="section-title">参考答案: [cite: 182]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 183]
+#include &lt;ctype.h&gt; [cite: 184]
+
+int main(void) [cite: 185]
+{ [cite: 186]
+    int letter = 0, digit = 0, other = 0; [cite: 188, 190]
+    char ch; [cite: 189]
+    
+    while ((ch = getchar()) != '\n') { [cite: 191, 192]
+        if (isalpha(ch)) { [cite: 193]
+            ++letter; [cite: 194]
+        } else if (isdigit(ch)) { [cite: 195]
+            ++digit; [cite: 197]
+        } else { [cite: 198]
+            ++other; [cite: 199]
+        } [cite: 200]
+    }
+    printf("%d\n", letter); [cite: 201, 203]
+    printf("%d\n", digit); [cite: 204, 206]
+    printf("%d\n", other); [cite: 207, 209]
+    return 0; [cite: 210]
+} [cite: 211]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">8. 【描述】 [cite: 212]</div>
+        <p>将一个三位正整数（假设其个位数不为0）按逆序转换为新的整数后输出。例如，输入123，输出321。 [cite: 213]</p>
+        
+        <div class="section-title">【输入】 [cite: 214]</div>
+        <p>输入一个三位正整数。 [cite: 215]</p>
+        
+        <div class="section-title">【输出】 [cite: 216]</div>
+        <p>输出将该整数逆序后的新整数。 [cite: 217]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 218]</div>
+        <div class="io-example">123</div>
+        
+        <div class="section-title">【输出示例】 [cite: 220]</div>
+        <div class="io-example">321</div>
+        
+        <div class="section-title">【提示】 [cite: 222]</div>
+        <p>数的各位分离是指将整数n的每一位数取出，在取数的过程中，反复运用“%”和“/”运算符，“%10”运算可以取出整数n的个位数，而“n/10”运算可以将整数n的十位数移至个位数、百位数移至十位数...反复运用这两个表达式就可以取出整数n的每一位数。 [cite: 223]</p>
+
+        <div class="section-title">参考答案: [cite: 229]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 230]
+
+int main(void) [cite: 232]
+{ [cite: 233]
+    int a, b, c, n; [cite: 234]
+    scanf("%d", &n); [cite: 235]
+    a = n % 10;          /* 个位 */ [cite: 236]
+    b = (n / 10) % 10;   /* 十位 */ [cite: 237]
+    c = (n / 10 / 10) % 10; /* 百位 */ [cite: 238]
+    n = a * 100 + b * 10 + c; [cite: 239]
+    printf("%d\n", n); [cite: 240]
+    return 0; [cite: 241]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">9. 【描述】 [cite: 242]</div>
+        <p>输入一个四位正整数，将该整数每一位上的数字加9，然后除以10取余，作为该位上的新数字，最后将千位和十位上的数字互换，百位和个位上的数字互换，组成变换后的新四位正整数并输出。题目保证转换后的数的千位不会为0。 [cite: 247]</p>
+        
+        <div class="section-title">【输入】 [cite: 248]</div>
+        <p>输入一个四位正整数。 [cite: 249]</p>
+        
+        <div class="section-title">【输出】 [cite: 250]</div>
+        <p>输出变换后的新四位正整数。 [cite: 251]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 252]</div>
+        <div class="io-example">1257</div>
+        
+        <div class="section-title">【输出示例】 [cite: 254]</div>
+        <div class="io-example">4601</div>
+
+        <div class="section-title">参考答案: [cite: 256]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 257]
+
+int main(void) [cite: 258]
+{ [cite: 259]
+    int n; [cite: 261]
+    scanf("%d", &n); [cite: 265]
+    
+    int a = n % 10;          /* 个位 */ [cite: 267, 280]
+    int b = (n / 10) % 10;   /* 十位 */ [cite: 268, 281]
+    int c = (n / 10 / 10) % 10; /* 百位 */ [cite: 270, 282]
+    int d = (n / 10 / 10 / 10) % 10; /* 千位 */ [cite: 271, 283]
+    
+    /* 加9并除以10取余 */ [cite: 284]
+    a = (a + 9) % 10; [cite: 272]
+    b = (b + 9) % 10; [cite: 273]
+    c = (c + 9) % 10; [cite: 274]
+    d = (d + 9) % 10; [cite: 275]
+    
+    /* 千位十位互换，百位个位互换 */
+    n = b * 1000 + a * 100 + d * 10 + c; [cite: 276]
+    printf("%d\n", n); [cite: 277]
+    return 0; [cite: 278]
+} [cite: 260]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">10. 【描述】 [cite: 279]</div>
+        <p>输入一个整数，检查它是否能同时被2和3整除，是否被2或3整除，是否被2或3整除且只被其一整除。 [cite: 285]</p>
+        
+        <div class="section-title">【输入】 [cite: 286]</div>
+        <p>输入一个整数。 [cite: 287]</p>
+        
+        <div class="section-title">【输出】 [cite: 288]</div>
+        <p>分行输出该整数是否能同时被2和3整除，是否被2或3整除，是否被2或3整除且只被其一整除。见输出示例。 [cite: 289, 290]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 291]</div>
+        <div class="io-example">18</div>
+        
+        <div class="section-title">【输出示例】 [cite: 293]</div>
+        <div class="io-example">18 divisible by 2 and 3? 1
+18 divisible by 2 or 3? 1
+18 divisible by 2 or 3, but not both? 0</div>
+
+        <div class="section-title">参考答案: [cite: 299]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 300]
+
+int main() [cite: 301]
+{ [cite: 302]
+    int n; [cite: 303]
+    scanf("%d", &n); [cite: 304]
+    printf("%d %s %d\n", n, "divisible by 2 and 3?", (n % 2 == 0 && n % 3 == 0)); [cite: 304, 306]
+    printf("%d %s %d\n", n, "divisible by 2 or 3?", (n % 2 == 0 || n % 3 == 0)); [cite: 307, 308, 312]
+    printf("%d %s %d\n", n, "divisible by 2 or 3, but not both?", ((n % 2 == 0 || n % 3 == 0) && !(n % 2 == 0 && n % 3 == 0))); [cite: 310, 313, 314]
+    return 0; [cite: 315]
+} [cite: 316]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">11. 【描述】 [cite: 317]</div>
+        <p>计算两个整数的和、平均值、最小值和最大值。要求平均值保留2位小数，用条件运算符求最小值和最大值。 [cite: 318]</p>
+        
+        <div class="section-title">【输入】 [cite: 319]</div>
+        <p>输入整数a和b。 [cite: 320]</p>
+        
+        <div class="section-title">【输出】 [cite: 321]</div>
+        <p>分行输出整数a and b的和、平均值、最小值和最大值。 [cite: 322]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 323]</div>
+        <div class="io-example">5 3</div>
+        
+        <div class="section-title">【输出示例】 [cite: 326]</div>
+        <div class="io-example">8
+4.00
+3
+5</div>
+
+        <div class="section-title">参考答案: [cite: 330]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 332]
+
+int main(void) [cite: 334]
+{ [cite: 335]
+    int a, b; [cite: 336]
+    int sum, min, max; [cite: 337]
+    double average; [cite: 338]
+    scanf("%d%d", &a, &b); [cite: 339]
+    sum = a + b; [cite: 340]
+    printf("%d\n", sum); [cite: 341]
+    average = (a + b) / 2.0; [cite: 342]
+    printf("%.2f\n", average); [cite: 343]
+    min = (a &gt; b) ? b : a; [cite: 344]
+    printf("%d\n", min); [cite: 345]
+    max = (a &gt; b) ? a : b; [cite: 346]
+    printf("%d\n", max); [cite: 347]
+    return 0; [cite: 348]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">12. 【描述】 [cite: 349]</div>
+        <p>计算如下式子的值：a + aa + aaa + ...... + aa......a [cite: 350] 后前n项之和。例如a为2，n为5，则式子的值为24690(2+22+222+2222+22222)。 [cite: 351]</p>
+        
+        <div class="section-title">【输入】 [cite: 352]</div>
+        <p>输入a和n。 [cite: 353]</p>
+        
+        <div class="section-title">【输出】 [cite: 354]</div>
+        <p>输出式子的值。 [cite: 355]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 356]</div>
+        <div class="io-example">2 5</div>
+        
+        <div class="section-title">【输出示例】 [cite: 358]</div>
+        <div class="io-example">24690</div>
+
+        <div class="section-title">参考答案: [cite: 360]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 361]
+
+int main(void) [cite: 362]
+{ [cite: 363]
+    int i, a, n, item, sum; [cite: 364, 365]
+    scanf("%d%d", &a, &n); [cite: 366]
+    item = a; [cite: 367]
+    sum = a; [cite: 368]
+    for (i = 2; i &lt;= n; ++i) { [cite: 369]
+        item = item * 10 + a; [cite: 371]
+        sum += item; [cite: 370]
+    } [cite: 372]
+    printf("%d\n", sum); [cite: 373]
+    return 0; [cite: 374]
+} [cite: 375]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">13. 【描述】 [cite: 376]</div>
+        <p>输入一个数，输出分段函数的值，结果保留2位小数。分段函数的数学定义如下： [cite: 377]</p>
+        <div class="math">
+            y = x<sup>2</sup> (当 x &lt; 0) ; &radic;x (当 0 &le; x &lt; 9) ; x - 6 (当 x &ge; 9) [cite: 378]
+        </div>
+        
+        <div class="section-title">【输入】 [cite: 379]</div>
+        <p>输入x。 [cite: 380]</p>
+        
+        <div class="section-title">【输出】 [cite: 381]</div>
+        <p>输出分段函数f的值，结果保留2位小数。 [cite: 385]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 385]</div>
+        <div class="io-example">2.5</div>
+        
+        <div class="section-title">【输出示例】 [cite: 387]</div>
+        <div class="io-example">1.58</div>
+
+        <div class="section-title">参考答案: [cite: 390]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 391]
+#include &lt;math.h&gt; [cite: 392]
+
+int main(void) [cite: 394]
+{ [cite: 393]
+    double x, y; [cite: 396]
+    scanf("%lf", &x); [cite: 397]
+    if (x &lt; 0) [cite: 397]
+        y = x * x;     /* 满足x&lt;0 */ [cite: 398, 406]
+    else if (x &lt; 9) [cite: 399]
+        y = sqrt(x);   /* 不满足x&lt;0,但满足x&lt;9 */ [cite: 401, 407]
+    else [cite: 400]
+        y = x - 6;     /* 不满足x&lt;0,也不满足x&lt;9 */ [cite: 402, 408]
+    printf("%.2f\n", y); [cite: 403]
+    return 0; [cite: 404]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">14. 【描述】</div>
+        <p>计算如下式子：e = 1 + 1/1! + 1/2! + 1/3! + 1/4! + ... 的值，计算到最后一项的值小于0.000001时为止。 [cite: 409, 410]</p>
+        
+        <div class="section-title">【输入】 [cite: 411]</div>
+        <p>没有输入。 [cite: 412]</p>
+        
+        <div class="section-title">【输出】 [cite: 413]</div>
+        <p>输出式子的值，计算到最后一项的值小于0.000001时为止。 [cite: 414]</p>
+
+        <div class="section-title">参考答案: [cite: 415]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 416]
+#define EPSILON 1e-6 [cite: 417]
+
+int main(void) [cite: 418]
+{ [cite: 419]
+    int i; [cite: 420]
+    double fact, item, e; [cite: 421]
+    i = 1; [cite: 422]
+    fact = 1; [cite: 423]
+    item = 1; [cite: 424]
+    e = 0; [cite: 425]
+    while(item &gt;= EPSILON) [cite: 426]
+    { [cite: 427]
+        e += item; [cite: 428]
+        fact *= i; [cite: 429]
+        item = 1.0 / fact; [cite: 430]
+        ++i; [cite: 431]
+    } [cite: 432]
+    printf("%f\n", e); [cite: 433]
+    return 0; [cite: 434]
+} [cite: 435]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">15. 【描述】 [cite: 436]</div>
+        <p>计算如下式子：1 + 1/3 + 1/5 + 1/7 + ... 前n项之和，结果保留3位小数。 [cite: 437, 438, 443, 444]</p>
+        
+        <div class="section-title">【输入】 [cite: 439]</div>
+        <p>输入一个正整数n。 [cite: 440]</p>
+        
+        <div class="section-title">【输出】 [cite: 441]</div>
+        <p>输出数列前n项的和，结果保留3位小数。 [cite: 446]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 447]</div>
+        <div class="io-example">10</div>
+        
+        <div class="section-title">【输出示例】 [cite: 449]</div>
+        <div class="io-example">2.133</div>
+
+        <div class="section-title">参考答案: [cite: 455]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 456]
+
+int main(void) { [cite: 457]
+    int i, n; [cite: 458]
+    double sum = 0; [cite: 459]
+    scanf("%d", &n); [cite: 460]
+    for (i = 1; i &lt;= n; ++i) [cite: 461]
+        sum += 1.0 / (2 * i - 1); [cite: 462]
+    printf("%.3f\n", sum); [cite: 463]
+    return 0; [cite: 464]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">16. 【描述】 [cite: 465]</div>
+        <p>计算如下式子：s = 1 - 1/4 + 1/7 - 1/10 + 1/13 - 1/16 + ...... 的值，计算到最后一项的值小于0.0000001时为止。 [cite: 466, 467, 468]</p>
+        
+        <div class="section-title">【输入】 [cite: 469]</div>
+        <p>没有输入。 [cite: 470]</p>
+        
+        <div class="section-title">【输出】 [cite: 471]</div>
+        <p>输出式子的值，计算到最后一项的值小于0.0000001时为止。 [cite: 472]</p>
+        
+        <div class="section-title">【提示】 [cite: 473]</div>
+        <p>这是一个累加问题，因此需要一个存放累加和的变量，其初始值为0；每个子项的绝对值可表示为：1/(3n-2)，这里要注意正负交替的情况；当某一子项的绝对值小于0.0000001时终止计算。 [cite: 474, 475, 476]</p>
+
+        <div class="section-title">参考答案: [cite: 477]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 478]
+#include &lt;math.h&gt; [cite: 479]
+#define EPSILON 1e-7 [cite: 480]
+
+int main(void) [cite: 481]
+{ [cite: 482]
+    int n = 1; [cite: 483]
+    int flag = 1; [cite: 484]
+    double item = 1; [cite: 485]
+    double sum = 0; [cite: 487]
+    while (fabs(item) &gt; EPSILON) { [cite: 488]
+        sum += item; [cite: 489]
+        flag = -flag; [cite: 490]
+        item = 1.0 * flag / (3 * n - 1); // 修正原文字识别错误 [cite: 492]
+        ++n; [cite: 491]
+    } [cite: 493]
+    printf("%f\n", sum); [cite: 495]
+    return 0; [cite: 496]
+} [cite: 494]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">17. 【描述】 [cite: 497]</div>
+        <p>输入a、b和c，若它们能构成三角形，则输出三角形周长，否则输出“Invalid”。 [cite: 498]</p>
+        
+        <div class="section-title">【输入】 [cite: 498]</div>
+        <p>输入a、b和c。 [cite: 499]</p>
+        
+        <div class="section-title">【输出】 [cite: 500]</div>
+        <p>输出三角形周长或“Invalid” [cite: 501]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 502]</div>
+        <div class="io-example">1 2 3</div>
+        
+        <div class="section-title">【输出示例】 [cite: 504]</div>
+        <div class="io-example">Invalid</div>
+
+        <div class="section-title">参考答案: [cite: 506]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 509]
+
+int main(void) [cite: 511]
+{ [cite: 510]
+    double a, b, c; [cite: 512]
+    scanf("%lf%lf%lf", &a, &b, &c); [cite: 513]
+    if ((a + b &gt; c) && (a + c &gt; b) && (b + c &gt; a)) { [cite: 516]
+        printf("%lf\n", (a + b + c)); [cite: 518]
+    } else { [cite: 517]
+        printf("Invalid\n"); [cite: 519]
+    }
+    return 0; [cite: 520]
+} [cite: 521]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">18. 【描述】 [cite: 522]</div>
+        <p>计算如下式子：1+2+3+……+n 前n项之和。 [cite: 523]</p>
+        
+        <div class="section-title">【输入】 [cite: 524]</div>
+        <p>输入一个正整数n。 [cite: 525]</p>
+        
+        <div class="section-title">【输出】 [cite: 526]</div>
+        <p>输出数列前n项的和。 [cite: 527]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 528]</div>
+        <div class="io-example">100</div>
+        
+        <div class="section-title">【输出示例】 [cite: 530]</div>
+        <div class="io-example">5050</div>
+
+        <div class="section-title">参考答案: [cite: 532]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 533]
+
+int main(void) [cite: 534]
+{ [cite: 535]
+    int n, sum, i; [cite: 536, 537]
+    sum = 0; [cite: 538]
+    scanf("%d", &n); [cite: 539]
+    for (i = 1; i &lt;= n; ++i) [cite: 540]
+        sum += i; [cite: 541]
+    printf("%d\n", sum); [cite: 542]
+    return 0; [cite: 544]
+} [cite: 543]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">19. 【描述】 [cite: 545]</div>
+        <p>你买了一箱n个苹果，很不幸的是买完时箱子里混进了一条虫子。虫子每x小时能吃掉一个苹果，假设虫子在吃完一个苹果之前不会吃另一个，那么经过y小时你还有多少个完整的苹果？ [cite: 546, 547]</p>
+        
+        <div class="section-title">【输入】 [cite: 548]</div>
+        <p>输入n, x和y (均为整数)。 [cite: 549]</p>
+        
+        <div class="section-title">【输出】 [cite: 550]</div>
+        <p>输出完整的苹果数 (整数)。 [cite: 551]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 552]</div>
+        <div class="io-example">10 4 9</div>
+        
+        <div class="section-title">【输出示例】 [cite: 555]</div>
+        <div class="io-example">7</div>
+
+        <div class="section-title">参考答案: [cite: 556]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 557]
+
+int main(void) [cite: 558]
+{ [cite: 560]
+    int n, x, y, eaten; [cite: 561]
+    scanf("%d%d%d", &n, &x, &y); [cite: 562]
+    eaten = y / x; [cite: 563]
+    if (eaten &gt;= n) [cite: 564]
+        eaten = n; [cite: 565]
+    else if (y % x != 0) [cite: 566]
+        ++eaten; [cite: 567]
+    printf("%d\n", (n - eaten)); [cite: 568]
+    return 0; [cite: 568]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">20. 【描述】 [cite: 569]</div>
+        <p>输入学生的考试成绩(0~100)，将学生的成绩划分等级并输出。学生的成绩可分为5个等级：90~100为A级，80~89为B级，70~79为C级，60~69为D级，0~59为E级。要求用switch语句。 [cite: 571, 572]</p>
+        
+        <div class="section-title">【输入】 [cite: 573]</div>
+        <p>输入学生的考试成绩(0~100)。 [cite: 574]</p>
+        
+        <div class="section-title">【输出】 [cite: 575]</div>
+        <p>输出等级。 [cite: 576]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 577]</div>
+        <div class="io-example">91</div>
+        
+        <div class="section-title">【输出示例】 [cite: 580]</div>
+        <div class="io-example">A</div>
+        
+        <div class="section-title">【提示】 [cite: 581]</div>
+        <p>假设学生的成绩为score，则score/10的一个值就代表了10种情况，例如score/10为7时，就代表成绩70~79的情况。 [cite: 582]</p>
+
+        <div class="section-title">参考答案: [cite: 583]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 584]
+
+int main(void) [cite: 585]
+{ [cite: 586]
+    int score; [cite: 587]
+    char grade; [cite: 588]
+    scanf("%d", &score); [cite: 589]
+    score = score / 10; [cite: 590]
+    switch (score) { [cite: 590]
+        case 0: [cite: 591]
+        case 1: [cite: 592]
+        case 2: [cite: 593]
+        case 3: [cite: 594]
+        case 4: [cite: 595]
+        case 5: grade = 'E'; break; [cite: 596]
+        case 6: grade = 'D'; break; [cite: 597]
+        case 7: grade = 'C'; break; [cite: 598]
+        case 8: grade = 'B'; break; [cite: 602]
+        case 9: [cite: 603]
+        case 10: grade = 'A'; break; [cite: 604]
+    } [cite: 599]
+    printf("%c\n", grade); [cite: 605]
+    return 0; [cite: 606]
+} [cite: 600]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">21. 【描述】 [cite: 601]</div>
+        <p>计算存款到期时的税前利息。计算公式如下：interest = money * (1+rate)<sup>year</sup> - money [cite: 608]</p>
+        
+        <div class="section-title">【输入】 [cite: 609]</div>
+        <p>输入存款(money)、存期(year)和年利率(rate)。 [cite: 610]</p>
+        
+        <div class="section-title">【输出】 [cite: 611]</div>
+        <p>计算存款到期时的税前利息(interest)，要求保留小数点后2位精度。 [cite: 612]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 613]</div>
+        <div class="io-example">10000
+3
+0.025</div>
+        
+        <div class="section-title">【输出示例】 [cite: 617]</div>
+        <div class="io-example">768.91</div>
+        
+        <div class="section-title">【提示】 [cite: 619]</div>
+        <p>可以使用数学库中的pow函数。包含头文件&lt;math.h&gt;。 [cite: 620]</p>
+
+        <div class="section-title">参考答案: [cite: 621]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 622]
+#include &lt;math.h&gt; [cite: 623]
+
+int main(void) [cite: 624]
+{ [cite: 625]
+    int money, year; [cite: 626]
+    double rate, interest; [cite: 627]
+    scanf("%d", &money); [cite: 628]
+    scanf("%lf", &rate); [cite: 629]
+    scanf("%d", &year); [cite: 630, 631]
+    interest = money * pow((1 + rate), year) - money; [cite: 632, 633]
+    printf("%.2f\n", interest); [cite: 634]
+    return 0; [cite: 635]
+} [cite: 636]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">22. 【描述】 [cite: 637]</div>
+        <p>计算如下式子：1+(1+2)+(1+2+3)+(1+2+3+4)+…… 的前n项之和。 [cite: 638]</p>
+        
+        <div class="section-title">【输入】 [cite: 639]</div>
+        <p>输入一个正整数n。 [cite: 640]</p>
+        
+        <div class="section-title">【输出】 [cite: 641]</div>
+        <p>输出数列前n项的和。 [cite: 642]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 644]</div>
+        <div class="io-example">3</div>
+        
+        <div class="section-title">【输出示例】 [cite: 645]</div>
+        <div class="io-example">10</div>
+
+        <div class="section-title">参考答案: [cite: 648]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 649]
+
+int main(void) [cite: 650]
+{ [cite: 652]
+    int i, j, n, sum, subitem; [cite: 654]
+    scanf("%d", &n); [cite: 655]
+    sum = 0; [cite: 656]
+    for (i = 1; i &lt;= n; ++i) { [cite: 657]
+        subitem = 0; [cite: 658]
+        for (j = 1; j &lt;= i; ++j) { [cite: 659]
+            subitem += j; [cite: 660]
+        }
+        sum += subitem; [cite: 661]
+    }
+    printf("%d\n", sum); [cite: 662]
+    return 0; [cite: 663]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">23. 【描述】 [cite: 664]</div>
+        <p>求一个整数的逆序数。要求定义和调用函数: int reverse (int n),该函数返回一个整数的逆序数。 [cite: 665]</p>
+        
+        <div class="section-title">【输入】 [cite: 666]</div>
+        <p>输入一个整数。 [cite: 667]</p>
+        
+        <div class="section-title">【输出】 [cite: 668]</div>
+        <p>输出整数的逆序数。 [cite: 669]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 670]</div>
+        <div class="io-example">-123</div>
+        
+        <div class="section-title">【输出示例】 [cite: 672]</div>
+        <div class="io-example">-321</div>
+
+        <div class="section-title">参考答案: [cite: 674]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 675]
+
+int reverse (int n); [cite: 677]
+
+int main() [cite: 678]
+{ [cite: 679]
+    int n; [cite: 680]
+    scanf("%d", &n); [cite: 681]
+    printf("%d\n", reverse(n)); [cite: 684]
+    return 0; [cite: 685]
+}
+
+int reverse (int n) [cite: 686]
+{ [cite: 687]
+    int remainder, result = 0, flag = 1; [cite: 688]
+    if (n &lt; 0) { [cite: 689]
+        flag = -1; [cite: 694]
+        n = -n; [cite: 691]
+    } [cite: 692]
+    while (n != 0) { [cite: 695]
+        remainder = n % 10; [cite: 696]
+        result = result * 10 + remainder; [cite: 697]
+        n = n / 10; [cite: 698]
+    } [cite: 699]
+    return flag * result; [cite: 700]
+} [cite: 701]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">24. 【描述】 [cite: 702]</div>
+        <p>搬石头:有100块石头,1只大象一次能扛19块,1只老虎一次能抗12块,4只松鼠一起一次能扛1块。有15只动物(大象、老虎和松鼠)一次能将这100块扛完。求出这三种动物各有多少只。 [cite: 703, 704]</p>
+        
+        <div class="section-title">【输入】 [cite: 705]</div>
+        <p>没有输入。 [cite: 706]</p>
+        
+        <div class="section-title">【输出】 [cite: 707]</div>
+        <p>输出大象、老虎和松鼠各有多少只。输出格式按示例：A,B,C（A、B、C分别表示大象、老虎、松鼠的个数）。 [cite: 708, 710, 711]</p>
+        
+        <div class="section-title">【输出示例】 [cite: 709]</div>
+        <div class="io-example">A, B, C</div>
+
+        <div class="section-title">参考答案: [cite: 712]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 713]
+
+int main(void) [cite: 714]
+{ [cite: 715]
+    int elephant, tiger, squirrel; [cite: 716]
+    for (elephant = 1; elephant &lt;= 5; ++elephant) { [cite: 717]
+        for (tiger = 1; tiger &lt;= 8; ++tiger) { [cite: 718]
+            squirrel = 15 - elephant - tiger; [cite: 722, 723]
+            if ((elephant * 19 + tiger * 12 + squirrel * 0.25 == 100) && (squirrel % 4 == 0)) { [cite: 724, 725]
+                printf("%d,%d,%d\n", elephant, tiger, squirrel); [cite: 726]
+            }
+        }
+    }
+    return 0; [cite: 720]
+} [cite: 721]</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">25. 【描述】 [cite: 727]</div>
+        <p>假设铁路托运行李,规定每张客票托运费的计算方法是： [cite: 728]<br>
+        (1)行李重量不超过50千克时,每千克0.25元; [cite: 729]<br>
+        (2)超过50千克而不超过100千克时,其超过部分每千克0.35元: [cite: 730]<br>
+        (3)超过100千克时,其超过部分每千克0.45元。 [cite: 731]<br>
+        输入行李重量,计算并输出所需的运费,结果保留2位小数。 [cite: 732]</p>
+        
+        <div class="section-title">【输入】 [cite: 733]</div>
+        <p>输入行李重量(单位千克)。 [cite: 734]</p>
+        
+        <div class="section-title">【输出】 [cite: 735]</div>
+        <p>输出所需的运费。 [cite: 736]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 737]</div>
+        <div class="io-example">75</div>
+        
+        <div class="section-title">【输出示例】 [cite: 739]</div>
+        <div class="io-example">21.25</div>
+
+        <div class="section-title">参考答案: [cite: 741]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 743]
+
+int main(void) [cite: 745]
+{ [cite: 746]
+    double weight, freight; [cite: 747]
+    scanf("%lf", &weight); [cite: 748]
+    if (weight &lt;= 50) [cite: 749]
+        freight = weight * 0.25; [cite: 750]
+    else if (weight &lt;= 100) [cite: 751]
+        freight = 50 * 0.25 + (weight - 50) * 0.35; [cite: 752]
+    else [cite: 753]
+        freight = 50 * 0.25 + 50 * 0.35 + (weight - 100) * 0.45; [cite: 754]
+    printf("%.2f\n", freight); [cite: 755]
+    return 0; [cite: 756]
+}</code></pre>
+    </div>
+
+    <div class="question-block">
+        <div class="question-title">26. 【描述】 [cite: 757]</div>
+        <p>如果四边形四条边的长度分别为a、b、c、d,一对对角之和为2&alpha;,则求其面积的公式如下： [cite: 758]</p>
+        <div class="math">
+            area = &beta; = &radic;((p-a)(p-b)(p-c)(p-d) - abcd * cos<sup>2</sup>&alpha;) [cite: 759]
+        </div>
+        <p>其中 <span class="math">p = 1/2 * (a+b+c+d)</span> [cite: 761]。要求定义和调用函数：<code>double computeArea (double a, double b, double c, double d, double alpha)</code>,该函数返回任意四边形的面积。&pi; 值为3.14159。 [cite: 762]</p>
+        
+        <div class="section-title">【输入】 [cite: 763]</div>
+        <p>输入四边形的四条边a、b、c、d和一对对角之和2&alpha;(单位为度数) [cite: 764]</p>
+        
+        <div class="section-title">【输出】 [cite: 764]</div>
+        <p>输出对应的任意四边形面积。 [cite: 765]</p>
+        
+        <div class="section-title">【输入示例】 [cite: 766]</div>
+        <div class="io-example">3 4 5 5 145</div>
+        
+        <div class="section-title">【输出示例】 [cite: 768]</div>
+        <div class="io-example">16.615057</div>
+        
+        <div class="section-title">【提示】 [cite: 770]</div>
+        <p>可以使用数学库中的cos函数,单位为弧度。包含头文件&lt;math.h&gt; [cite: 771]</p>
+
+        <div class="section-title">参考答案: [cite: 772]</div>
+<pre><code>#include &lt;stdio.h&gt; [cite: 773]
+#include &lt;math.h&gt; [cite: 774]
+#define PI 3.14159 [cite: 775]
+
+double computeArea (double a, double b, double c, double d, double alpha); [cite: 776]
+
+int main(void) [cite: 777]
+{ [cite: 778]
+    double a, b, c, d, alpha; [cite: 779]
+    scanf("%lf%lf%lf%lf%lf", &a, &b, &c, &d, &alpha); [cite: 780, 781, 782]
+    alpha = alpha * PI / 360; [cite: 783]
+    printf("%f\n", computeArea (a, b, c, d, alpha)); [cite: 784, 785, 786]
+    return 0; [cite: 787]
+}
+
+double computeArea (double a, double b, double c, double d, double alpha) [cite: 789]
+{ [cite: 790]
+    double p, area; [cite: 792]
+    p = (a + b + c + d) * 0.5; [cite: 793, 800]
+    area = sqrt((p - a) * (p - b) * (p - c) * (p - d) - a * b * c * d * cos(alpha) * cos(alpha)); [cite: 795, 796, 801, 802, 803]
+    return area; [cite: 797, 804]
+} [cite: 805]</code></pre>
+    </div>
+
+</body>
+</html>
